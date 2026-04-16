@@ -17,7 +17,7 @@ age = st.number_input("Age", min_value=0, max_value=100, value=35)
 uhrsworkt = st.number_input("Usual Hours Worked per Week", min_value=0, max_value=100, value=40)
 statefip = st.number_input("State FIPS", min_value=1, max_value=56, value=51)
 
-sex = st.selectbox("Sex", options=["1", "2"])
+sex = st.selectbox("Sex", options=[1,2])
 education = st.selectbox(
     "Education",
     options=[
