@@ -12,23 +12,21 @@ with open(MODEL_PATH, "rb") as f:
 st.title("Random Forest Prediction App")
 st.write("Enter the values below to generate a prediction.")
 
+# User inputs
 age = st.number_input("Age", min_value=0, max_value=100, value=35)
 uhrsworkt = st.number_input("Usual Hours Worked per Week", min_value=0, max_value=100, value=40)
 statefip = st.number_input("State FIPS", min_value=1, max_value=56, value=51)
 
-sex = st.selectbox("Sex", options=["Male", "Female"])
+sex = st.selectbox("Sex", options=["1", "2"])
 education = st.selectbox(
     "Education",
     options=[
-        "High school",
-        "Some college",
-        "Bachelor",
-        "Master",
-        "Doctorate"
+       "0","1","2"
     ]
 )
 
 if st.button("Predict"):
+    # Build one-row dataframe with exact feature names
     new_data = pd.DataFrame([{
         "AGE": age,
         "UHRSWORKT": uhrsworkt,
@@ -44,6 +42,7 @@ if st.button("Predict"):
         prediction = model.predict(new_data)[0]
         st.success(f"Prediction: {prediction}")
 
+        # If model supports probabilities
         if hasattr(model, "predict_proba"):
             probs = model.predict_proba(new_data)[0]
             st.write("Prediction probabilities:")
