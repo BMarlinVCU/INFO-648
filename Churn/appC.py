@@ -10,7 +10,10 @@ with open(MODEL_PATH, "rb") as f:
     model = pickle.load(f)
 
 st.title("Customer Churn Predictor")
-
+st.write("Threshold:", CHURN_THRESHOLD)
+st.write("Classes:", model.classes_)
+st.write("Raw probabilities:", model.predict_proba(input_df)[0])
+st.write("Chosen prob:", prob)
 st.write("Enter customer details:")
 
 total_charges = st.number_input("Total Charges", 0.0, 10000.0, 100.0)
@@ -26,6 +29,9 @@ internet = st.selectbox(
     ["DSL", "Fiber optic", "No"]
 )
 
+# Define the custom threshold
+CHURN_THRESHOLD = 0.45
+
 if st.button("Predict Churn"):
 
     input_df = pd.DataFrame([{
@@ -35,8 +41,11 @@ if st.button("Predict Churn"):
         "Internet Service": internet
     }])
 
-    pred = model.predict(input_df)[0]
+    # Get probability for the positive class (churn=1)
     prob = model.predict_proba(input_df)[0][1]
+
+    # Apply the custom threshold for prediction
+    pred = 1 if prob >= CHURN_THRESHOLD else 0
 
     label = "Will Churn ❌" if pred == 1 else "Will Stay ✅"
 
