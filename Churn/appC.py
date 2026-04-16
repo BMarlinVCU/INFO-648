@@ -13,7 +13,7 @@ st.title("Customer Churn Predictor")
 
 st.write("Enter customer details:")
 
-tenure = st.slider("Tenure (months)", 0, 72, 12)
+total_charges = st.number_input("Total Charges", 0.0, 10000.0, 100.0)
 monthly = st.number_input("Monthly Charges", 0.0, 200.0, 70.0)
 
 contract = st.selectbox(
@@ -29,10 +29,10 @@ internet = st.selectbox(
 if st.button("Predict Churn"):
 
     input_df = pd.DataFrame([{
-        "tenure": tenure,
-        "MonthlyCharges": monthly,
+        "Total Charges": total_charges,
+        "Monthly Charges": monthly,
         "Contract": contract,
-        "InternetService": internet
+        "Internet Service": internet
     }])
 
     pred = model.predict(input_df)[0]
