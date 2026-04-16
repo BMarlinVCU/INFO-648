@@ -9,11 +9,7 @@ MODEL_PATH = os.path.join(BASE_DIR, "churn_model.pkl")
 with open(MODEL_PATH, "rb") as f:
     model = pickle.load(f)
 
-st.title("Customer Churn Predictor")
-st.write("Threshold:", CHURN_THRESHOLD)
-st.write("Classes:", model.classes_)
-st.write("Raw probabilities:", model.predict_proba(input_df)[0])
-st.write("Chosen prob:", prob)
+
 st.write("Enter customer details:")
 
 total_charges = st.number_input("Total Charges", 0.0, 10000.0, 100.0)
@@ -31,7 +27,11 @@ internet = st.selectbox(
 
 # Define the custom threshold
 CHURN_THRESHOLD = 0.45
-
+st.title("Customer Churn Predictor")
+st.write("Threshold:", CHURN_THRESHOLD)
+st.write("Classes:", model.classes_)
+st.write("Raw probabilities:", model.predict_proba(input_df)[0])
+st.write("Chosen prob:", prob)
 if st.button("Predict Churn"):
 
     input_df = pd.DataFrame([{
