@@ -1,0 +1,44 @@
+import os
+import pickle
+import pandas as pd
+import streamlit as st
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "churn_model.pkl")
+
+with open(MODEL_PATH, "rb") as f:
+    model = pickle.load(f)
+
+st.title("Customer Churn Predictor")
+
+st.write("Enter customer details:")
+
+tenure = st.slider("Tenure (months)", 0, 72, 12)
+monthly = st.number_input("Monthly Charges", 0.0, 200.0, 70.0)
+
+contract = st.selectbox(
+    "Contract Type",
+    ["Month-to-month", "One year", "Two year"]
+)
+
+internet = st.selectbox(
+    "Internet Service",
+    ["DSL", "Fiber optic", "No"]
+)
+
+if st.button("Predict Churn"):
+
+    input_df = pd.DataFrame([{
+        "tenure": tenure,
+        "MonthlyCharges": monthly,
+        "Contract": contract,
+        "InternetService": internet
+    }])
+
+    pred = model.predict(input_df)[0]
+    prob = model.predict_proba(input_df)[0][1]
+
+    label = "Will Churn ❌" if pred == 1 else "Will Stay ✅"
+
+    st.subheader(label)
+    st.write(f"Churn Probability: {prob:.2f}")
