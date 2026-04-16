@@ -8,7 +8,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "RF_model.pkl")
 
 # Load model
-with open("RF_model.pkl", "rb") as f:
+with open("Random_Forest/RF_model.pkl", "rb") as f:
     model = pickle.load(f)
 
 st.title("Random Forest Prediction App")
