@@ -3,18 +3,15 @@ import pickle
 import pandas as pd
 import streamlit as st
 
-# Find the folder where this script lives
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "RF_model.pkl")
 
-# Load model
-with open("Random_Forest/RF_model.pkl", "rb") as f:
+with open(MODEL_PATH, "rb") as f:
     model = pickle.load(f)
 
 st.title("Random Forest Prediction App")
 st.write("Enter the values below to generate a prediction.")
 
-# User inputs
 age = st.number_input("Age", min_value=0, max_value=100, value=35)
 uhrsworkt = st.number_input("Usual Hours Worked per Week", min_value=0, max_value=100, value=40)
 statefip = st.number_input("State FIPS", min_value=1, max_value=56, value=51)
@@ -32,7 +29,6 @@ education = st.selectbox(
 )
 
 if st.button("Predict"):
-    # Build one-row dataframe with exact feature names
     new_data = pd.DataFrame([{
         "AGE": age,
         "UHRSWORKT": uhrsworkt,
@@ -48,7 +44,6 @@ if st.button("Predict"):
         prediction = model.predict(new_data)[0]
         st.success(f"Prediction: {prediction}")
 
-        # If model supports probabilities
         if hasattr(model, "predict_proba"):
             probs = model.predict_proba(new_data)[0]
             st.write("Prediction probabilities:")
