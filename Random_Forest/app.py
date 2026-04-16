@@ -21,7 +21,7 @@ sex = st.selectbox("Sex", options=[1,2])
 education = st.selectbox(
     "Education",
     options=[
-       "0","1","2"
+      0,1,2
     ]
 )
 
