@@ -30,7 +30,6 @@ CHURN_THRESHOLD = 0.45
 st.title("Customer Churn Predictor")
 st.write("Threshold:", CHURN_THRESHOLD)
 st.write("Classes:", model.classes_)
-st.write("Raw probabilities:", model.predict_proba(input_df)[0])
 st.write("Chosen prob:", prob)
 if st.button("Predict Churn"):
 
