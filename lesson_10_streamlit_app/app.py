@@ -6,5 +6,5 @@ with open("iris_model.pkl", "rb") as f:
 
 st.title("Lesson 25 App")
 
-if st.button("Predicbt"):
+if st.button("Predict"):
     st.write("Model loaded!")
