@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-df=pd.read_csv('INFO-648/churn2/TV_App/Advertising_F.csv')
+df=pd.read_csv('churn2/TV_App/Advertising_F.csv')
 st.title("Advertising Effectiveness Marlin")
 st.sidebar.header("Filters")
 x_var=st.sidebar.selectbox("X axis",["TV","radio","newspaper"])
